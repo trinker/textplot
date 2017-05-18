@@ -1,4 +1,4 @@
-textplot
+textplot   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
 ============
 
 
@@ -6,20 +6,28 @@ textplot
 Status](https://travis-ci.org/trinker/textplot.svg?branch=master)](https://travis-ci.org/trinker/textplot)
 [![Coverage
 Status](https://coveralls.io/repos/trinker/textplot/badge.svg?branch=master)](https://coveralls.io/r/trinker/textplot?branch=master)
-<a href="https://img.shields.io/badge/Version-0.0.1-orange.svg"><img src="https://img.shields.io/badge/Version-0.0.1-orange.svg" alt="Version"/></a>
-</p>
-**textplot** is...
+
+![](tools/textplot_logo/r_textplot.png)
+
+**textplot** is a suite of text plotting tools that enable the user to
+analyze text data via serveral common text plotting methods. Methods
+include lexical dispersion plots, tree maps, speech networks, speech
+Gantt charts, text hilighting, and word clouds.
 
 
 Table of Contents
 ============
 
--   [[Installation](#installation)](#[installation](#installation))
--   [[Contact](#contact)](#[contact](#contact))
+-   [Functions](#functions)
+-   [Installation](#installation)
+-   [Contact](#contact)
+
+Functions
+============
+
 
 Installation
 ============
-
 
 To download the development version of **textplot**:
 
@@ -35,8 +43,7 @@ the development version:
 Contact
 =======
 
-You are welcome to:  
-- submit suggestions and bug-reports at:
-<https://github.com/trinker/textplot/issues>  
-- send a pull request on: <https://github.com/trinker/textplot/>  
-- compose a friendly e-mail to: <tyler.rinker@gmail.com>
+You are welcome to:    
+- submit suggestions and bug-reports at: <https://github.com/trinker/textplot/issues>    
+- send a pull request on: <https://github.com/trinker/textplot/>    
+- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
