@@ -7,7 +7,7 @@
 #' @examples
 #' view_cols(hilighter_cols)
 #' view_cols(c("#FFA500", "#B3B3B3", "#FFFF00", 'red', 'blue', 'black'))
-hilighter_cols <- c("#FFA500", "#B3B3B3", "#FFFF00", "#FFC0CB", "#00FFFF", "#FF69B4",
+hilighter_cols <- c("#FFA500", "#E9E9E9", "#FFFF00", "#FFC0CB", "#00FFFF", "#FF69B4",
     "#7FFF00", "#CDBE70", "#E066FF", "#FFD39B")
 
 #' Palettes and Palette Viewing
