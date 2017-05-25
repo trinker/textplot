@@ -16,8 +16,8 @@
 #' @param \dots Multiple text strings.
 #' @return Returns a vector of strings wrpped in HTML tags.
 #' @rdname tag
-#' @export
 #' @examples
+#' \dontrun{#'
 #' tag(LETTERS, "<iframe>")
 #'
 #' p(LETTERS)
@@ -27,7 +27,6 @@
 #' span(LETTERS)
 #' set.seed(10)
 #' (body <-p(span(LETTERS, extra=sprintf("style=\"color:%s\"", sample(colors(), 26)))))
-#' \dontrun{
 #' template2html(insert_body(highlight_template(c(x="")), body))
 #' open_html()
 #' }
