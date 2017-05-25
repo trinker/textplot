@@ -34,7 +34,7 @@ knitr::opts_chunk$set(fig.path = "tools/figure/")
 ![](tools/textplot_logo/r_textplot.png)
 
 
-**textplot** is a suite of text plotting tools that enable the user to analyze text data via serveral common text plotting methods.  Methods include lexical dispersion plots, tree maps, speech networks, speech Gantt charts, text hilighting, and word clouds.
+**textplot** is a suite of text plotting tools that enable the user to analyze text data via serveral common text plotting methods.  Methods include lexical dispersion plots, tree maps, speech networks, co-occurrence networks, speech Gantt charts, text hilighting, and word clouds.
 
 # Functions
 
