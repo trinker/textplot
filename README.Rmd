@@ -34,7 +34,7 @@ knitr::opts_chunk$set(fig.path = "tools/figure/")
 ![](tools/textplot_logo/r_textplot.png)
 
 
-**textplot** is a suite of text plotting tools that enable the user to analyze text data via serveral common text plotting methods.  Methods include lexical dispersion plots, tree maps, speech networks, co-occurrence networks, speech Gantt charts, text hilighting, and word clouds.
+**textplot** is a suite of text plotting tools that enable the user to analyze text data via serveral common text plotting methods.  Methods include lexical dispersion plots, word trees, speech networks, co-occurrence networks, speech Gantt charts, text hilighting, and word clouds.
 
 # Functions
 
@@ -49,6 +49,77 @@ Download the [zip ball](https://github.com/trinker/textplot/zipball/master) or [
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load_current_gh("trinker/textplot")
 ```
+# Examples
+
+## Lexical Dispersion
+
+## Word Trees
+
+```{r}
+word_tree(sam_i_am, word = 'I') %>%
+    plot()
+```
+
+```{r}
+word_tree(sam_i_am, word = 'do') %>%
+    plot()
+```
+
+
+```{r}
+library(tidyverse)
+
+presidential_debates_2012 %>%
+    dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
+    word_tree(
+        text.var = dialogue, 
+        word = 'america', 
+        grouping.var = person
+    ) %>%
+    plot()
+```
+
+## Speech Networks
+
+## Co-occurrence Networks
+
+## Speech Gantt Charts
+
+## Text Hilighting
+
+### Regular Expresion Terms
+
+```{r}
+library(tidyverse)
+
+map1 <- list(
+    `#FF69B4` = c('we(\'[a-z]+)?\\b'),
+    `#7CFC00` = c('he(\'[a-z]+)?\\b'),
+    yellow = 'you',
+    gray70 = '\\bi\\b'
+)
+
+set.seed(10)
+presidential_debates_2012 %>%
+    dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %>%
+    dplyr::group_by(person) %>%
+    dplyr::sample_n(15) %$%
+    hilight_term(dialogue, map1, list(person)) %>%
+    plot()
+
+```
+
+### Token Matching
+
+```{r}
+```
+
+### Sentence Matching
+
+```{r}
+```
+
+## Word Clouds
 
 # Contact
 
