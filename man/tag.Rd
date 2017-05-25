@@ -88,6 +88,7 @@ following are equivalent: \cr \cr
 This is more natural to write with and more akin to how HTML tags work.
 }
 \examples{
+\dontrun{#'
 tag(LETTERS, "<iframe>")
 
 p(LETTERS)
@@ -97,7 +98,6 @@ p(paste(b(LETTERS), 1:26, letters))
 span(LETTERS)
 set.seed(10)
 (body <-p(span(LETTERS, extra=sprintf("style=\\"color:\%s\\"", sample(colors(), 26)))))
-\dontrun{
 template2html(insert_body(highlight_template(c(x="")), body))
 open_html()
 }

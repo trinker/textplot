@@ -27,7 +27,7 @@ of 1 or more grouping variables.}
 \item{ignore.case}{logical.  If \code{FALSE}, the pattern initial matching is
 case sensitive and if \code{TRUE}, case is ignored during initial matching.}
 
-\item{first.appearance}{logical.  If \code{TRUE} the first regex that matches 
+\item{first.appearance}{logical.  If \code{TRUE} the first regex that matches
 a sentence will be applied, otherwise the last matching regex will be applied.}
 
 \item{\ldots}{ignored.}
@@ -41,7 +41,7 @@ a sentence will be applied, otherwise the last matching regex will be applied.}
 }
 \examples{
 \dontrun{
-    
+
 ## highlight regex expressions
 map1 <- list(
     `#FF69B4` = c('we(\\'[a-z]+)?\\\\b'),
@@ -50,12 +50,29 @@ map1 <- list(
     gray70 = 'talk'
 )
 
-term_regex <- with(termco::presidential_debates_2012, 
+term_regex <- with(presidential_debates_2012,
     hilight_term(dialogue, map1, list(person, time)))
 
 plot(term_regex)
 
+## tidier
+library(tidyverse)
 
+map1B <- list(
+    `orange` = c('we(\\'[a-z]+)?\\\\b'),
+    `pink` = c('that[\\'a-z]*\\\\b'),
+    yellow = 'you(\\'(ll|[vr]e))?\\\\b',
+    gray = '\\\\bI\\\\b'
+)
+
+presidential_debates_2012 \%>\%
+    dplyr::filter(person \%in\% c('ROMNEY', 'OBAMA')) \%$\%
+    hilight_term(
+        text.var = dialogue,
+        map = map1B,
+        grouping.var = person
+    ) \%>\%
+    plot()
 
 ## highlight tokens
 map2 <- list(
@@ -65,7 +82,7 @@ map2 <- list(
     gray70 = c('.', '?', '!')
 )
 
-token_match <- with(termco::presidential_debates_2012, 
+token_match <- with(presidential_debates_2012,
     hilight_token(dialogue, map2, list(person, time)))
 
 plot(token_match)
@@ -78,7 +95,7 @@ map3 <- list(
 )
 
 
-sent_regex <- with(termco::presidential_debates_2012, 
+sent_regex <- with(presidential_debates_2012,
     hilight_sentence(dialogue, map3, list(person, time)))
 
 plot(sent_regex)
@@ -95,10 +112,10 @@ map_index[[2]] <- map_index[[2]][!map_index[[2]] \%in\% map_index[[1]]]
 map_index[[3]] <- map_index[[3]][!map_index[[3]] \%in\% unlist(map_index[1:2])]
 
 
-sent_index <- with(termco::presidential_debates_2012, 
+sent_index <- with(presidential_debates_2012,
     hilight_sentence(dialogue, map_index, list(person, time)))
 
-plot(sent_index) 
+plot(sent_index)
 
 }
 }

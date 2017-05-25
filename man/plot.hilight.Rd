@@ -12,7 +12,7 @@
 
 \item{path}{A path ending in .html to output the plot to.}
 
-\item{open}{logical  If \code{TRUE} and interactive, the plot will be opened 
+\item{open}{logical  If \code{TRUE} and interactive, the plot will be opened
 in the browser or RStudio.}
 
 \item{\ldots}{ignored.}
