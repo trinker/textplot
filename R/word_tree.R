@@ -8,11 +8,6 @@
 #' one word list for all text.  Also takes a single grouping variable or a list
 #' of 1 or more grouping variables.  If \code{TRUE} an \code{id} variable is
 #' used with a \code{seq_along} the \code{text.var}.
-#' @param path A path ending in .html to output the plot to.
-#' @param open logical.  If \code{TRUE} the output .html file is opened via
-#' \code{\link[utils]{browseURL}}.
-#' @param width The width of the plot in px.
-#' @param height The height of the plot in px.
 #' @param ignore.case logical.  If \code{FALSE}, the pattern initial matching is
 #' case sensitive and if \code{TRUE}, case is ignored during initial matching.
 #' @param \ldots ignored.
@@ -22,27 +17,34 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' word_tree(sam_i_am, word = 'I', open = TRUE)
-#' word_tree(sam_i_am, word = 'do', open = TRUE)
-#' word_tree(sam_i_am, word = 'not', open = TRUE)
+#' library(dplyr)
+#' 
+#' word_tree(sam_i_am, word = 'I') %>%
+#'     plot()
+#' word_tree(sam_i_am, word = 'do') %>%
+#'     plot()
+#' word_tree(sam_i_am, word = 'not') %>%
+#'     plot()
 #'
 #' with(presidential_debates_2012, word_tree(dialogue, word = 'I',
-#'     list(person, time), open = TRUE))
-#' with(presidential_debates_2012, word_tree(dialogue, word = 'america', l
-#'     ist(person, time), open = TRUE, path = 'treemap.html'))
+#'     list(person, time))) %>%
+#'     plot()
+#' with(presidential_debates_2012, word_tree(dialogue, word = 'america', 
+#'     list(person, time), path = 'treemap.html')) %>%
+#'     plot()
 #' with(presidential_debates_2012, word_tree(dialogue, word = 'He',
-#'     list(person, time), open = TRUE, path = 'treemap.html'))
+#'     list(person, time), path = 'treemap.html')) %>%
+#'     plot()
 #' with(presidential_debates_2012, word_tree(dialogue, word = 'we',
-#'     list(person, time), open = TRUE, path = 'treemap.html', height = 1200))
+#'     list(person, time), path = 'treemap.html')) %>%
+#'     plot(height = 1200)
 #' with(presidential_debates_2012, word_tree(dialogue, word = 'our',
-#'     list(person, time), open = TRUE, path = 'treemap.html', height = 1200))
+#'     list(person, time), path = 'treemap.html')) %>%
+#'     plot(height = 1200)
 #' }
-word_tree <- function(text.var, word, grouping.var = NULL,
-    path = file.path(tempdir(), 'treemap.html'), open = TRUE, width = 900,
-    height = 600, ignore.case = TRUE, ...){
+word_tree <- function(text.var, word, grouping.var = NULL, ignore.case = TRUE, ...){
 
     stopifnot(is.atomic(text.var))
-
 
     if(is.null(grouping.var)){
         grouping <- rep("all", length(text.var))
@@ -56,6 +58,8 @@ word_tree <- function(text.var, word, grouping.var = NULL,
 
     }
 
+    width <- 'WIDTHHERE'
+    height = 'HEIGHTHERE'
 
     ## split text by group var
     txts <- split(text.var, grouping)
@@ -73,13 +77,58 @@ word_tree <- function(text.var, word, grouping.var = NULL,
     parts_com[['js']] <- paste(unlist(lapply(parts, '[[', 1)), collapse = "\n")
     parts_com[['div']] <- paste(unlist(lapply(parts, '[[', 2)), collapse = "\n")
 
-
     ## make the file
-    cat(contruct_tree_map(parts_com), file = path)
-    if (open) utils::browseURL(path)
+    out <- parts_com
+    class(out) <- 'word_tree'
+    out  
+}
 
-    class(path) <- c('textplot', 'character')
-    return(invisible(path))
+
+#' Plots a word_tree Object
+#' 
+#' Plots a word_tree object
+#' 
+#' @param x A \code{word_tree} object.
+#' @param path A path ending in .html to output the plot to.
+#' @param width The width of the plot in px for browsers.
+#' @param height The height of the plot in px for browsers.
+#' @param open logical  If \code{TRUE} and interactive, the plot will be opened 
+#' in the browser or RStudio.
+#' @param \ldots ignored.
+#' @method plot word_tree
+#' @export 
+plot.word_tree <- function(x, path = file.path(tempdir(), 'word_tree.html'), 
+    width = 900, height = 600, open = TRUE, ...){
+
+    x[['div']] <- .mgsub(c('WIDTHHERE', 'HEIGHTHERE'), c(width, height), x[['div']], perl = FALSE)
+
+
+    if(isTRUE(getOption('knitr.in.progress'))){
+   
+        knitout <- paste('<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>',
+            x[['js']], x[['div']], sep = "\n")
+        
+        cat(knitout)
+
+        
+    } else {
+        
+        cat(contruct_tree_map(x), file = path)
+        
+        if (open) {
+    
+            isRStudio <- (Sys.getenv("RSTUDIO") == "1") 
+            if(isRStudio){  
+                rstudioapi::viewer(path)
+            }else {
+                utils::browseURL(path)
+            }
+        }
+        
+        return(invisible(path))
+        
+    }
+    
 }
 
 
