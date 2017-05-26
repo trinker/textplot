@@ -80,7 +80,7 @@ word_tree(sam_i_am, word = 'do') %>%
 
 ![](tools/figure/wordtree_2.png)
 
-```{r, results='asis'}
+```{r, eval=FALSE}
 presidential_debates_2012 %>%
     dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
     word_tree(
@@ -103,7 +103,7 @@ presidential_debates_2012 %>%
 
 ### Regular Expresion Terms
 
-```{r}
+```{r, results='asis'}
 library(tidyverse)
 
 map1 <- list(
