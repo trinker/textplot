@@ -13,6 +13,9 @@
 #' a sentence will be applied, otherwise the last matching regex will be applied.
 #' @param ignore.case logical.  If \code{FALSE}, the pattern initial matching is
 #' case sensitive and if \code{TRUE}, case is ignored during initial matching.
+#' @param keep.row.order logical.  If \code{TRUE} the \code{grouping.var} 
+#' argument is used for headings but the row text is not collapsed within the 
+#' \code{grouping.var}.  This produces transcript like formatting.
 #' @param \ldots ignored.
 #' @rdname hilight
 #' @importFrom data.table := .N
@@ -32,7 +35,13 @@
 #'     hilight_term(dialogue, map1, list(person, time)))
 #'
 #' plot(term_regex)
+#' 
+#' ## Keep row order
+#' term_regex <- with(presidential_debates_2012,
+#'     hilight_term(dialogue, map1, list(person, time), keep.row.order = TRUE))
 #'
+#' plot(term_regex)
+#' 
 #' ## tidier
 #' library(tidyverse)
 #'
@@ -96,7 +105,8 @@
 #' plot(sent_index)
 #'
 #' }
-hilight_term <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE, ...){
+hilight_term <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE, 
+    keep.row.order = FALSE, ...){
 
     stopifnot(is.atomic(text.var))
 
@@ -127,6 +137,11 @@ hilight_term <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE,
         }
     }
 
+    if (isTRUE(keep.row.order)){
+        grouping <- data.frame(roworderid = seq_along(text.var), grouping, stringsAsFactors = FALSE)
+        G <- c('roworderid', G)
+    }
+    
     ## to assign classes to text and then link class to color in script
     map <- collapse_map(check_map(map))
     reps <- paste0(mark_start(map[['class']]), "\\1", mark_end)
@@ -144,6 +159,11 @@ hilight_term <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE,
     dat <- dat[, `grouping` := h3(eval(expr))][,
         list(`text.var` = paste(text.var, collapse = " ")), by = 'grouping'][,
             `text.var` := paste(grouping, text.var, sep = '\n')][]
+    
+    if (isTRUE(keep.row.order)){
+        dat <- dat[, `text.var` := gsub('^<h3>\\d+\\.', '<h3>', text.var)][]
+    }
+    
     body <- paste(dat[['text.var']], collapse = "\n")
 
     out <- list(body = body, style = map_to_style(unique(map[, c('color', 'class')])), html = hilight_html)
@@ -159,7 +179,8 @@ hilight_term <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE,
 #'
 #' @rdname hilight
 #' @export
-hilight_token <- function(text.var, map, grouping.var = NULL, ignore.case = FALSE, ...){
+hilight_token <- function(text.var, map, grouping.var = NULL, ignore.case = FALSE, 
+    keep.row.order = FALSE, ...){
 
     mark <- replacement <- element_id <- token_id <- NULL
 
@@ -192,6 +213,11 @@ hilight_token <- function(text.var, map, grouping.var = NULL, ignore.case = FALS
         }
     }
 
+    if (isTRUE(keep.row.order)){
+        grouping <- data.frame(roworderid = seq_along(text.var), grouping, stringsAsFactors = FALSE)
+        G <- c('roworderid', G)
+    }
+        
     ## to assign classes to text and then link class to color in script
     map <- data.table::data.table(check_map(map))[,
         'replacement' := paste0(mark_start(class))][]
@@ -219,6 +245,11 @@ hilight_token <- function(text.var, map, grouping.var = NULL, ignore.case = FALS
     dat <- dat[, `grouping` := h3(eval(expr))][,
         list(`text.var` = paste(text.var, collapse = " ")), by = 'grouping'][,
             `text.var` := paste(grouping, text.var, sep = '\n')][]
+    
+    if (isTRUE(keep.row.order)){
+        dat <- dat[, `text.var` := gsub('^<h3>\\d+\\.', '<h3>', text.var)][]
+    }    
+    
     body <- gsub('(\\s+)(<mark class="[a-z]+">[;:,.?!])', '\\2',
         paste(dat[['text.var']], collapse = "\n"), perl=TRUE)
 
@@ -238,7 +269,7 @@ low <- function(x, lower) {if (lower) tolower(x) else x}
 #' @rdname hilight
 #' @export
 hilight_sentence <- function(text.var, map, grouping.var = NULL,
-    first.appearance = TRUE, ignore.case = TRUE, ...){
+    first.appearance = TRUE, ignore.case = TRUE, keep.row.order = FALSE, ...){
 
     mark <- element_id <- NULL
 
@@ -271,6 +302,11 @@ hilight_sentence <- function(text.var, map, grouping.var = NULL,
         }
     }
 
+    if (isTRUE(keep.row.order)){
+        grouping <- data.frame(roworderid = seq_along(text.var), grouping, stringsAsFactors = FALSE)
+        G <- c('roworderid', G)
+    }
+        
     map <- check_map(map)
 
     if (all(is.numeric(map[['mark']]))) {
@@ -341,6 +377,11 @@ hilight_sentence <- function(text.var, map, grouping.var = NULL,
     ## add grouping variables as headers
     expr <- parse(text=paste0('paste(', paste(G, collapse = ", "), ", sep = '.')"))[[1]]
     dat <- dat[, `grouping` := h3(eval(expr))][, `text.var` := paste(grouping, text.var, sep = '\n')][]
+    
+    if (isTRUE(keep.row.order)){
+        dat <- dat[, `text.var` := gsub('^<h3>\\d+\\.', '<h3>', text.var)][]
+    }
+    
     body <- paste(dat[['text.var']], collapse = "\n")
 
     out <- list(body = body, style = map_to_style(unique(map[, c('color', 'class')])), html = hilight_html)

@@ -6,12 +6,15 @@
 \alias{hilight_sentence}
 \title{Highlight Text}
 \usage{
-hilight_term(text.var, map, grouping.var = NULL, ignore.case = TRUE, ...)
+hilight_term(text.var, map, grouping.var = NULL, ignore.case = TRUE,
+  keep.row.order = FALSE, ...)
 
-hilight_token(text.var, map, grouping.var = NULL, ignore.case = FALSE, ...)
+hilight_token(text.var, map, grouping.var = NULL, ignore.case = FALSE,
+  keep.row.order = FALSE, ...)
 
 hilight_sentence(text.var, map, grouping.var = NULL,
-  first.appearance = TRUE, ignore.case = TRUE, ...)
+  first.appearance = TRUE, ignore.case = TRUE, keep.row.order = FALSE,
+  ...)
 }
 \arguments{
 \item{text.var}{The text string variable.}
@@ -26,6 +29,10 @@ of 1 or more grouping variables.}
 
 \item{ignore.case}{logical.  If \code{FALSE}, the pattern initial matching is
 case sensitive and if \code{TRUE}, case is ignored during initial matching.}
+
+\item{keep.row.order}{logical.  If \code{TRUE} the \code{grouping.var} 
+argument is used for headings but the row text is not collapsed within the 
+\code{grouping.var}.  This produces transcript like formatting.}
 
 \item{first.appearance}{logical.  If \code{TRUE} the first regex that matches
 a sentence will be applied, otherwise the last matching regex will be applied.}
@@ -52,6 +59,12 @@ map1 <- list(
 
 term_regex <- with(presidential_debates_2012,
     hilight_term(dialogue, map1, list(person, time)))
+
+plot(term_regex)
+
+## Keep row order
+term_regex <- with(presidential_debates_2012,
+    hilight_term(dialogue, map1, list(person, time), keep.row.order = TRUE))
 
 plot(term_regex)
 
