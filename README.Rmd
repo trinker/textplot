@@ -51,24 +51,36 @@ pacman::p_load_current_gh("trinker/textplot")
 ```
 # Examples
 
+```{r}
+if (!require("pacman")) install.packages("pacman")
+pacman::p_load(dplyr, magrittr, textplot)
+```
+
+
 ## Lexical Dispersion
+
+
+
+
+
 
 ## Word Trees
 
-```{r}
+```{r, eval = FALSE}
 word_tree(sam_i_am, word = 'I') %>%
     plot()
 ```
 
-```{r}
+![](tools/figure/wordtree_1.png)
+
+```{r, eval = FALSE}
 word_tree(sam_i_am, word = 'do') %>%
     plot()
 ```
 
+![](tools/figure/wordtree_2.png)
 
-```{r}
-library(tidyverse)
-
+```{r, results='asis'}
 presidential_debates_2012 %>%
     dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
     word_tree(
@@ -78,6 +90,8 @@ presidential_debates_2012 %>%
     ) %>%
     plot()
 ```
+
+![](tools/figure/wordtree_3.png)
 
 ## Speech Networks
 
