@@ -97,13 +97,18 @@ Speech Gantt Charts
 Text Hilighting
 ---------------
 
+    hilighter_cols %>%
+        view_cols()
+
+![](tools/figure/unnamed-chunk-41-1.png)
+
 ### Regular Expresion Terms
 
     map1 <- list(
         `#FF69B4` = c('we(\'[a-z]+)?\\b'),
         `#7CFC00` = c('he(\'[a-z]+)?\\b'),
         yellow = 'you',
-        gray70 = '\\bi\\b'
+        gray70 = '\\bi(?=$|\\s)'
     )
 
     set.seed(10)
@@ -118,7 +123,44 @@ Text Hilighting
 
 ### Token Matching
 
+    map2 <- list(
+        `#FF69B4` = c('talk', 'you'),
+        `#7CFC00` = c('he', "he's"),
+        orange = c('we\'re', 'we'),
+        yellow = 'that',
+        gray70 = c('.', '?', '!')
+    )
+
+
+    set.seed(10)
+    presidential_debates_2012 %>%
+        dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %>%
+        dplyr::group_by(person) %>%
+        dplyr::sample_n(15) %$%
+        hilight_token(dialogue, map2, list(person)) %>%
+        plot()
+
+![](tools/figure/hilight_2.png)
+
 ### Sentence Matching
+
+    map3 <- list(
+        'think',
+        c('he is', "he's", 'you(\'[vr]e)?\\b'),
+        '\\bi\\b'
+    ) %>%
+        map_cols(rev(hilighter_cols))
+        
+
+    set.seed(10)
+    presidential_debates_2012 %>%
+        dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %>%
+        dplyr::group_by(person) %>%
+        dplyr::sample_n(15) %$%
+        hilight_sentence(dialogue, map3, list(person)) %>%
+        plot()
+
+![](tools/figure/hilight_3.png)
 
 Word Clouds
 -----------

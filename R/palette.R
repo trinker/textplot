@@ -7,10 +7,10 @@
 #' @examples
 #' view_cols(hilighter_cols)
 #' view_cols(c("#FFA500", "#B3B3B3", "#FFFF00", 'red', 'blue', 'black'))
-#' 
+#'
 #' \dontrun{
 #' library(tidyverse)
-#' 
+#'
 #' map_hilight <- list(
 #'     c('\\bwe(\'[a-z]+)?\\b'),
 #'     c('\\bhe(\'[a-z]+)?\\b'),
@@ -18,7 +18,7 @@
 #'     '\\bi(?=($|\\s))'
 #' ) %>%
 #'     map_cols()
-#' 
+#'
 #' set.seed(10)
 #' presidential_debates_2012 %>%
 #'     dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %>%
@@ -27,7 +27,7 @@
 #'     hilight_term(dialogue, map_hilight, list(person)) %>%
 #'     plot()
 #' }
-hilighter_cols <- c("#FFA500", "#E9E9E9", "#FFFF00", "#FFC0CB", "#00FFFF", "#FF69B4",
+hilighter_cols <- c("#FFFF00", "#FFA500", "#E9E9E9", "#FFC0CB", "#00FFFF", "#FF69B4",
     "#7FFF00", "#CDBE70", "#E066FF", "#FFD39B")
 
 #' Palettes and Palette Viewing
@@ -82,7 +82,7 @@ assert_hex <- function(x){
 #' @rdname palette
 #' @export
 map_cols <- function(list, cols = hilighter_cols){
-    if (length(list) > length(cols)) stop('`list` can not be longer than cols`')   
+    if (length(list) > length(cols)) stop('`list` can not be longer than cols`')
     names(list) <- assert_hex(cols)[seq_along(list)]
     list
 }
