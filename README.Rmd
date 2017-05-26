@@ -93,6 +93,7 @@ presidential_debates_2012 %>%
 
 ![](tools/figure/wordtree_3.png)
 
+
 ## Speech Networks
 
 ## Co-occurrence Networks
@@ -103,9 +104,7 @@ presidential_debates_2012 %>%
 
 ### Regular Expresion Terms
 
-```{r, results='asis'}
-library(tidyverse)
-
+```{r, eval=FALSE}
 map1 <- list(
     `#FF69B4` = c('we(\'[a-z]+)?\\b'),
     `#7CFC00` = c('he(\'[a-z]+)?\\b'),
@@ -122,6 +121,8 @@ presidential_debates_2012 %>%
     plot()
 
 ```
+
+![](tools/figure/hilight_1.png)
 
 ### Token Matching
 
