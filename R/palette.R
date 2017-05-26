@@ -44,7 +44,7 @@ view_cols <- function(x) {
 
     cols <- factor(cols, levels=cols)
 
-    ggplot2::ggplot(data.frame(x = cols, y = 1), ggplot2::aes(x=cols, y=y, fill=cols)) +
+    ggplot2::ggplot(data.frame(x = cols, y = 1), ggplot2::aes_string(x='cols', y='y', fill='cols')) +
         ggplot2::geom_bar(stat = 'identity') +
         ggplot2::scale_fill_manual(values = as.character(cols)) +
         ggplot2::coord_flip() +
