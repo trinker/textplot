@@ -1,16 +1,14 @@
 Package: textplot
 Title: Text Oriented Plotting
 Version: 0.0.1
-Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut",
-          "cre")))
+Authors@R: c(person("Tyler", "Rinker", email = "tyler.rinker@gmail.com", role = c("aut", "cre")))
 Maintainer: Tyler Rinker <tyler.rinker@gmail.com>
-Description: Analyze text data via serveral common text plotting methods. Methods include
-          lexical dispersion plots, tree maps, speech networks, speech Gantt charts, text
-          hilighting, word clouds, etc.
+Description: Analyze text data via serveral common text plotting methods. Methods include lexical dispersion plots, tree maps, speech networks, speech
+                Gantt charts, text hilighting, word clouds, etc.
 Depends: R (>= 3.3.2)
 Imports: data.table, dplyr, ggplot2, grDevices, rstudioapi, stats, stringi, textshape, utils
 Suggests: testthat
-Date: 2017-05-25
+Date: 2017-05-26
 License: GPL-2
 LazyData: TRUE
 Roxygen: list(wrap = FALSE)
