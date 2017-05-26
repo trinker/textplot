@@ -89,8 +89,8 @@ map_cols <- function(list, cols = hilighter_cols){
 
 col2hex <- function(x){
     if (!all(x %in% grDevices::colors())) stop('colors must be either hexadecimal or r colors; see `colors()`')
-    m <- col2rgb(x, alpha = FALSE)
-    rgb(m[1,], m[2,], m[3,], maxColorValue=255)
+    m <- grDevices::col2rgb(x, alpha = FALSE)
+    grDevices::rgb(m[1,], m[2,], m[3,], maxColorValue=255)
 }
 
 
