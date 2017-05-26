@@ -35,82 +35,82 @@ tag <- function(x, left, right = gsub("^<", "</", left)){
 }
 
 #' @rdname tag
-#' @export
+
 p <- function(x) tag(x, "<p>")
 
 #' @rdname tag
-#' @export
+
 h1 <- function(x) tag(x, "<h1>")
 
 #' @rdname tag
-#' @export
+
 h2 <- function(x) tag(x, "<h2>")
 
 #' @rdname tag
-#' @export
+
 h3 <- function(x) tag(x, "<h3>")
 
 #' @rdname tag
-#' @export
+
 h4 <- function(x) tag(x, "<h4>")
 
 #' @rdname tag
-#' @export
+
 span <- function(x, extra = "") tag(x, sprintf("<span %s>", extra), "</span>")
 
 #' @rdname tag
-#' @export
+
 b <- function(x) tag(x, "<b>")
 
 #' @rdname tag
-#' @export
+
 em <- function(x) tag(x, "<em>")
 
 #' @rdname tag
-#' @export
+
 u <- function(x) tag(x, "<u>")
 
 
 #' @rdname tag
-#' @export
+
 tag_ <- function(..., left, right = gsub("^<", "</", left)){
     paste0(left, paste(...), right)
 }
 
 #' @rdname tag
-#' @export
+
 p_ <- function(...) tag_(..., left = "<p>")
 
 #' @rdname tag
-#' @export
+
 h1_ <- function(...) tag_(..., left ="<h1>")
 
 #' @rdname tag
-#' @export
+
 h2_ <- function(...) tag_(..., left ="<h2>")
 
 #' @rdname tag
-#' @export
+
 h3_ <- function(...) tag_(..., left ="<h3>")
 
 #' @rdname tag
-#' @export
+
 h4_ <- function(...) tag_(..., left ="<h4>")
 
 #' @rdname tag
-#' @export
+
 span_ <- function(..., extra = "") tag_(..., left =sprintf("<span %s>", extra), right="</span>")
 
 #' @rdname tag
-#' @export
+
 b_ <- function(...) tag_(..., left ="<b>")
 
 #' @rdname tag
-#' @export
+
 em_ <- function(...) tag_(..., left ="<em>")
 
 #' @rdname tag
-#' @export
+
 u_ <- function(...) tag_(..., left ="<u>")
 
 

@@ -1,6 +1,7 @@
 # map <- list(
 #     `#FF69B4` = 'think',
-#     `#7CFC00` = c('he is', "he's", 'you(\'[vr]e|\\b)')
+#     `#7CFC00` = c('he is', "he's", 'you(\'[vr]e|\\b)'),
+#     red = 'it'
 # )
 # 
 # map2 <- structure(list(color = c("#FF69B4", "#7CFC00", "#7CFC00", "#7CFC00"
@@ -29,7 +30,9 @@ check_map <- function(mark_map){
         class = text_id(length(color))
     )
 
-    dplyr::left_join(mark_map, key, by = 'color')
+    out <- dplyr::left_join(mark_map, key, by = 'color')
+    out[['color']] <- assert_hex(out[['color']])
+    out
 
 }
 

@@ -8,7 +8,7 @@ Description: Analyze text data via serveral common text plotting methods. Method
           lexical dispersion plots, tree maps, speech networks, speech Gantt charts, text
           hilighting, word clouds, etc.
 Depends: R (>= 3.3.2)
-Imports: data.table, dplyr, rstudioapi, stats, stringi, textshape, utils
+Imports: data.table, dplyr, ggplot2, rstudioapi, stats, stringi, textshape, utils
 Suggests: testthat
 Date: 2017-05-25
 License: GPL-2

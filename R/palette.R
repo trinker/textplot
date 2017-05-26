@@ -7,6 +7,26 @@
 #' @examples
 #' view_cols(hilighter_cols)
 #' view_cols(c("#FFA500", "#B3B3B3", "#FFFF00", 'red', 'blue', 'black'))
+#' 
+#' \dontrun{
+#' library(tidyverse)
+#' 
+#' map_hilight <- list(
+#'     c('\\bwe(\'[a-z]+)?\\b'),
+#'     c('\\bhe(\'[a-z]+)?\\b'),
+#'     'you',
+#'     '\\bi(?=($|\\s))'
+#' ) %>%
+#'     map_cols()
+#' 
+#' set.seed(10)
+#' presidential_debates_2012 %>%
+#'     dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %>%
+#'     dplyr::group_by(person) %>%
+#'     dplyr::sample_n(15) %$%
+#'     hilight_term(dialogue, map_hilight, list(person)) %>%
+#'     plot()
+#' }
 hilighter_cols <- c("#FFA500", "#E9E9E9", "#FFFF00", "#FFC0CB", "#00FFFF", "#FF69B4",
     "#7FFF00", "#CDBE70", "#E066FF", "#FFD39B")
 
@@ -52,6 +72,20 @@ assert_hex <- function(x){
     unname(unlist(lapply(x, function(y) if(grepl('#([0-9a-fA-F]{3}){1,2}', y)) { y } else { col2hex(y) })))
 }
 
+#' Palettes and Palette Viewing
+#'
+#' \code{map_cols} - Add colors to a list to make a named list which is a map.
+#'
+#' @param list A list of matches for a map.
+#' @param cols A vector of colors.
+#' @return \code{map_cols} returns a names list
+#' @rdname palette
+#' @export
+map_cols <- function(list, cols = hilighter_cols){
+    if (length(list) > length(cols)) stop('`list` can not be longer than cols`')   
+    names(list) <- assert_hex(cols)[seq_along(list)]
+    list
+}
 
 col2hex <- function(x){
     if (!all(x %in% grDevices::colors())) stop('colors must be either hexadecimal or r colors; see `colors()`')

@@ -22,10 +22,10 @@
 #'
 #' ## highlight regex expressions
 #' map1 <- list(
-#'     `#FF69B4` = c('we(\'[a-z]+)?\\b'),
-#'     `#7CFC00` = c('he is', "he's"),
+#'     `#FF69B4` = c('\\bwe(\'[a-z]+)?\\b'),
+#'     `#7CFC00` = c('\\bhe is', "he's"),
 #'     yellow = 'you(\'(ll|[vr]e))?\\b',
-#'     gray70 = 'talk'
+#'     gray70 = '\\btalk'
 #' )
 #'
 #' term_regex <- with(presidential_debates_2012,
@@ -37,7 +37,7 @@
 #' library(tidyverse)
 #'
 #' map1B <- list(
-#'     `orange` = c('we(\'[a-z]+)?\\b'),
+#'     `orange` = c('\\bwe(\'[a-z]+)?\\b'),
 #'     `pink` = c('that[\'a-z]*\\b'),
 #'     yellow = 'you(\'(ll|[vr]e))?\\b',
 #'     gray = '\\bI\\b'
