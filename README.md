@@ -81,8 +81,8 @@ Lexical Dispersion
         lexical_dispersion(text.var = dialogue, term.list = wrds, 
             grouping.var = person, rm.var = time
         ) %>%
-        plot(, bg.color = "black", color = "red", 
-            total.color = "white", horiz.color="grey20"
+        plot(bg.color = "black", grouping.var = list(fam.aff, sex),
+            color = "yellow", total.color = "white", horiz.color="grey20"
         )
 
 ![](tools/figure/unnamed-chunk-6-1.png)

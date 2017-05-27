@@ -60,7 +60,7 @@ pacman::p_load(dplyr, magrittr, textplot)
 ## Lexical Dispersion
 
 
-```{r, fig.height=4}
+```{r, fig.height=3}
 sam_i_am %>%
     lexical_dispersion(c(' not ', ' eat ', ' sam ', ' (sam|eat) ')) %>%
     plot()
@@ -81,8 +81,8 @@ pres_debates2012 %>%
     lexical_dispersion(text.var = dialogue, term.list = wrds, 
         grouping.var = person, rm.var = time
     ) %>%
-    plot(, bg.color = "black", color = "red", 
-        total.color = "white", horiz.color="grey20"
+    plot(bg.color = "black", grouping.var = list(fam.aff, sex),
+        color = "yellow", total.color = "white", horiz.color="grey20"
     )
 ```
 
