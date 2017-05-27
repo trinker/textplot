@@ -60,7 +60,7 @@ pacman::p_load(dplyr, magrittr, textplot)
 ## Lexical Dispersion
 
 
-```{r}
+```{r, fig.height=4}
 sam_i_am %>%
     lexical_dispersion(c(' not ', ' eat ', ' sam ', ' (sam|eat) ')) %>%
     plot()
