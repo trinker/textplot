@@ -57,6 +57,11 @@ Examples
 
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load(dplyr, magrittr, textplot)
+    pacman::p_load_current_gh('trinker/numform')
+
+    ## Warning in p_install_gh(package, dependencies = dependencies, ...): The following may have incorrect capitalization specification:
+    ## 
+    ## numform
 
 Lexical Dispersion
 ------------------
@@ -72,7 +77,8 @@ Lexical Dispersion
         lexical_dispersion(text.var = dialogue, term.list = wrds, 
             grouping.var = person, rm.var = time
         ) %>%
-        plot()
+        plot() +
+            ggplot2::scale_x_continuous(labels = numform::ff_denom())
 
 ![](tools/figure/unnamed-chunk-5-1.png)
 
@@ -83,7 +89,8 @@ Lexical Dispersion
         ) %>%
         plot(bg.color = "black", grouping.var = list(fam.aff, sex),
             color = "yellow", total.color = "white", horiz.color="grey20"
-        )
+        ) +
+            ggplot2::scale_x_continuous(labels = numform::ff_denom())
 
 ![](tools/figure/unnamed-chunk-6-1.png)
 

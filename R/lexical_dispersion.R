@@ -242,8 +242,7 @@ plot.lexical_dispersion <- function(x, color = "blue", bg.color = "grey90",
                 axis.text.y = ggplot2::element_blank())
     }
 
-    the_plot  +
-        ggplot2::scale_x_continuous(labels = numform::ff_denom())
+    the_plot
 }
 
 

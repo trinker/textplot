@@ -54,6 +54,7 @@ pacman::p_load_current_gh("trinker/numform", "trinker/textplot")
 ```{r}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(dplyr, magrittr, textplot)
+pacman::p_load_current_gh('trinker/numform')
 ```
 
 
@@ -72,7 +73,8 @@ pres_debates2012 %>%
     lexical_dispersion(text.var = dialogue, term.list = wrds, 
         grouping.var = person, rm.var = time
     ) %>%
-    plot()
+    plot() +
+        ggplot2::scale_x_continuous(labels = numform::ff_denom())
 ```
 
 ```{r, fig.height=9, fig.width = 8}
@@ -83,7 +85,8 @@ pres_debates2012 %>%
     ) %>%
     plot(bg.color = "black", grouping.var = list(fam.aff, sex),
         color = "yellow", total.color = "white", horiz.color="grey20"
-    )
+    ) +
+        ggplot2::scale_x_continuous(labels = numform::ff_denom())
 ```
 
 ## Word Trees
