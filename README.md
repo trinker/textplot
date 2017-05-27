@@ -50,7 +50,7 @@ and run `R CMD INSTALL` on it, or use the **pacman** package to install
 the development version:
 
     if (!require("pacman")) install.packages("pacman")
-    pacman::p_load_current_gh("trinker/numform", "trinker/textplot")
+    pacman::p_load_current_gh("trinker/textplot")
 
 Examples
 ========

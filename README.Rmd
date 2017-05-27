@@ -47,7 +47,7 @@ Download the [zip ball](https://github.com/trinker/textplot/zipball/master) or [
 
 ```r
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load_current_gh("trinker/numform", "trinker/textplot")
+pacman::p_load_current_gh("trinker/textplot")
 ```
 # Examples
 
