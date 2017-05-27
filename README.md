@@ -76,6 +76,17 @@ Lexical Dispersion
 
 ![](tools/figure/unnamed-chunk-5-1.png)
 
+    pres_debates2012 %>%
+        dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
+        lexical_dispersion(text.var = dialogue, term.list = wrds, 
+            grouping.var = person, rm.var = time
+        ) %>%
+        plot(, bg.color = "black", color = "red", 
+            total.color = "white", horiz.color="grey20"
+        )
+
+![](tools/figure/unnamed-chunk-6-1.png)
+
 Word Trees
 ----------
 
@@ -115,7 +126,7 @@ Text Hilighting
     hilighter_cols %>%
         view_cols()
 
-![](tools/figure/unnamed-chunk-9-1.png)
+![](tools/figure/unnamed-chunk-10-1.png)
 
 ### Regular Expresion Terms
 

@@ -66,13 +66,24 @@ sam_i_am %>%
     plot()
 ```
 
-```{r, fig.height=9, fig.width = 8}
+```{r, fig.height=10, fig.width = 8}
 pres_debates2012 %>%
     dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
     lexical_dispersion(text.var = dialogue, term.list = wrds, 
         grouping.var = person, rm.var = time
     ) %>%
     plot()
+```
+
+```{r, fig.height=10, fig.width = 8}
+pres_debates2012 %>%
+    dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
+    lexical_dispersion(text.var = dialogue, term.list = wrds, 
+        grouping.var = person, rm.var = time
+    ) %>%
+    plot(, bg.color = "black", color = "red", 
+        total.color = "white", horiz.color="grey20"
+    )
 ```
 
 ## Word Trees
