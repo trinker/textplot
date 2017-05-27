@@ -22,6 +22,7 @@ knit_hooks$set(htmlcap = function(before, options, envir) {
     paste('<p class="caption"><b><em>',options$htmlcap,"</em></b></p>",sep="")
     }
     })
+
 knitr::opts_knit$set(self.contained = TRUE, cache = FALSE)
 knitr::opts_chunk$set(fig.path = "tools/figure/")
 ```
@@ -51,7 +52,7 @@ pacman::p_load_current_gh("trinker/textplot")
 ```
 # Examples
 
-```{r}
+```{r, warning=FALSE}
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(dplyr, magrittr, textplot)
 pacman::p_load_current_gh('trinker/numform')

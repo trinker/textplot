@@ -59,10 +59,6 @@ Examples
     pacman::p_load(dplyr, magrittr, textplot)
     pacman::p_load_current_gh('trinker/numform')
 
-    ## Warning in p_install_gh(package, dependencies = dependencies, ...): The following may have incorrect capitalization specification:
-    ## 
-    ## numform
-
 Lexical Dispersion
 ------------------
 
