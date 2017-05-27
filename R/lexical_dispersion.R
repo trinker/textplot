@@ -37,7 +37,7 @@
 #' x <- lexical_dispersion(sam_i_am, c(' not ', ' eat ', ' sam ', ' (sam|eat) '))
 #' plot(x)
 lexical_dispersion <- function(text.var, term.list, grouping.var = NULL,
-    rm.var =NULL, group.names, time.names, ignore.case = TRUE, ...) {
+    rm.var = NULL, group.names, time.names, ignore.case = TRUE, ...) {
 
     value <- NULL
 
@@ -116,26 +116,28 @@ lexical_dispersion <- function(text.var, term.list, grouping.var = NULL,
         by_dat[, 'row_id' := 1:.N, by = 'time_id']
     }
 
-    out2 <- out <- locate_terms(text.var = text.var, term.list = term.list,
+    out <- locate_terms(text.var = text.var, term.list = term.list,
         ignore.case = ignore.case, along = by_dat[, c('time_id', 'row_id'), with = FALSE])
 
+    lens <- out[, .N, by = "time_id"]
     ## drop non-hit rows
-    out2 <- out2[(value), ][, 'value' :=  NULL]
-    if (nrow(out2) == 0) {
+    out <- out[(value), ][, 'value' :=  NULL]
+    if (nrow(out) == 0) {
         warning("No terms could be located in the text variable.")
         return(invisible(FALSE))
     }
 
-    out2 <- merge(out2, by_dat, by = c("time_id", "row_id"))
+    out <- merge(out, by_dat, by = c("time_id", "row_id"))
 
-    class(out2) <- unique(c("lexical_dispersion", class(out)))
+    class(out) <- unique(c("lexical_dispersion", class(out)))
     locations <- new.env(FALSE)
-    attributes(out2)[["locations"]] <- out
-    attributes(out2)[["groupings"]] <- G
-    attributes(out2)[["timings"]] <- R
-    attributes(out2)[["length"]] <- out[, .N, by = "time_id"]
-
-    out2
+    attributes(out)[["locations"]] <- out
+    attributes(out)[["groupings"]] <- G
+    attributes(out)[["timings"]] <- R
+    attributes(out)[["length"]] <- lens
+    attributes(out)[['terms']] <- term.list
+    
+    out
 }
 
 
@@ -168,16 +170,18 @@ lexical_dispersion <- function(text.var, term.list, grouping.var = NULL,
 #' @param \ldots Ignored.
 #' @method plot lexical_dispersion
 #' @export
-plot.lexical_dispersion <- function(x, color = "blue", bg.color = "grey90", horiz.color = "grey85",
-    total.color = "black", symbol = "|", title = "Lexical Dispersion Plot",
-    rev.factor = TRUE, wrap = "'", xlab = "Dialogue (Words)", ylab = NULL,
-    size = 4, scales="free", space="free", ...){
+plot.lexical_dispersion <- function(x, color = "blue", bg.color = "grey90", 
+    horiz.color = "grey85", total.color = "black", symbol = "|", 
+    title = "Lexical Dispersion Plot", rev.factor = TRUE, wrap = "'", 
+    xlab = "Dialogue (Words)", ylab = NULL, size = 4, scales="free", 
+    space="free", ...){
 
     grouping <- term <- NULL
-
+    tlvls <- paste0(" ", wrap, attributes(x)[['terms']], wrap)
+    
     #if (!isTRUE(x)) return(NULL)
     attrs <- attributes(x)
-
+    
     grps <- attributes(x)[["groupings"]]
     if (is.null(ylab)) {
         if (is.null(grps)) ylab <- "All" else ylab <- paste(simpleCap(grps), collapse = " & ")
@@ -204,9 +208,10 @@ plot.lexical_dispersion <- function(x, color = "blue", bg.color = "grey90", hori
         x[, 'summary' := "grouping"]
         cols <- color
     }
-
+ # browser()
     ## Add term wrapping
-    x <- x[, "term" := paste0(" ", wrap, term, wrap)]
+    # x <- x[, "term" := paste0(" ", wrap, term, wrap)]
+    x <- x[, "term" := factor(paste0(" ", wrap, term, wrap), levels = tlvls)]
 
     summary <- NULL
 
@@ -237,7 +242,8 @@ plot.lexical_dispersion <- function(x, color = "blue", bg.color = "grey90", hori
                 axis.text.y = ggplot2::element_blank())
     }
 
-    the_plot
+    the_plot  +
+        scale_x_continuous(labels = numform::ff_denom())
 }
 
 
@@ -289,7 +295,7 @@ locate_terms <- function(text.var, term.list, ignore.case = TRUE, along = NULL, 
     data.table::setkey(dat, 'time_id', 'row_id', 'word_id')
 
     class(dat) <- unique(c("locate_terms", class(dat)))
-    ## save length of text.var as attribute
+
     dat
 }
 

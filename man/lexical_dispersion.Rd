@@ -51,7 +51,7 @@ for just the word "read" you'd supply a vector of c(" read ", " reads",
 " reading", " reader").
 }
 \examples{
-x <- lexical_dispersion(sam_i_am, c('not', 'eat', 'sam'))
+x <- lexical_dispersion(sam_i_am, c(' not ', ' eat ', ' sam ', ' (sam|eat) '))
 plot(x)
 }
 \keyword{dispersion}

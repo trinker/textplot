@@ -1,4 +1,4 @@
-textplot   [![Follow](https://img.shields.io/twitter/follow/tylerrinker.svg?style=social)](https://twitter.com/intent/follow?screen_name=tylerrinker)
+textplot   
 ============
 
 
@@ -50,7 +50,7 @@ and run `R CMD INSTALL` on it, or use the **pacman** package to install
 the development version:
 
     if (!require("pacman")) install.packages("pacman")
-    pacman::p_load_current_gh("trinker/textplot")
+    pacman::p_load_current_gh("trinker/numform", "trinker/textplot")
 
 Examples
 ========
@@ -60,6 +60,21 @@ Examples
 
 Lexical Dispersion
 ------------------
+
+    sam_i_am %>%
+        lexical_dispersion(c(' not ', ' eat ', ' sam ', ' (sam|eat) ')) %>%
+        plot()
+
+![](tools/figure/unnamed-chunk-4-1.png)
+
+    pres_debates2012 %>%
+        dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
+        lexical_dispersion(text.var = dialogue, term.list = wrds, 
+            grouping.var = person, rm.var = time
+        ) %>%
+        plot()
+
+![](tools/figure/unnamed-chunk-5-1.png)
 
 Word Trees
 ----------
@@ -100,7 +115,7 @@ Text Hilighting
     hilighter_cols %>%
         view_cols()
 
-![](tools/figure/unnamed-chunk-41-1.png)
+![](tools/figure/unnamed-chunk-9-1.png)
 
 ### Regular Expresion Terms
 

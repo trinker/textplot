@@ -47,7 +47,7 @@ Download the [zip ball](https://github.com/trinker/textplot/zipball/master) or [
 
 ```r
 if (!require("pacman")) install.packages("pacman")
-pacman::p_load_current_gh("trinker/textplot")
+pacman::p_load_current_gh("trinker/numform", "trinker/textplot")
 ```
 # Examples
 
@@ -60,9 +60,20 @@ pacman::p_load(dplyr, magrittr, textplot)
 ## Lexical Dispersion
 
 
+```{r}
+sam_i_am %>%
+    lexical_dispersion(c(' not ', ' eat ', ' sam ', ' (sam|eat) ')) %>%
+    plot()
+```
 
-
-
+```{r}
+pres_debates2012 %>%
+    dplyr::filter(person %in% c('ROMNEY', 'OBAMA')) %$%
+    lexical_dispersion(text.var = dialogue, term.list = wrds, 
+        grouping.var = person, rm.var = time
+    ) %>%
+    plot()
+```
 
 ## Word Trees
 

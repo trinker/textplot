@@ -123,8 +123,8 @@ mclass <- function (x, pattern, first.appearance = TRUE, ignore.case = TRUE, ...
 
 ## Helper function to capitalize
 simpleCap <- function(x) {
-    x <- gsub("(\\w)(\\w*)","\\U\\1\\L\\2", x, perl=T)
-    .mgsub(c("And", "Of"), c("and", "of"), x)
+    x <- gsub("(\\w)(\\w*)","\\U\\1\\L\\2", x, perl=TRUE)
+    .mgsub(c("And", "Of"), c("and", "of"), x, perl = FALSE)
 }
 
 is.list_o_vectors <- function (x) {
