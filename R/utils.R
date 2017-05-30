@@ -155,3 +155,17 @@ list_namer <- function (x) {
     }
     x
 }
+
+
+#match words from a text based on a regex (for use word cloud)
+match_word <- function(text.var, term.list, ...) {
+
+    terms <- unlist(lapply(term.list, function(m) paste(paste0("(", m, ")"), collapse = "|")))
+    x <- sort(unique(as.character(quanteda::tokens(tolower(text.var), remove_punct = TRUE))))
+    out <- lapply(terms, function(y) x[stringi::stri_detect_regex(x, y)])
+    names(out) <- terms
+    out
+}
+
+
+
