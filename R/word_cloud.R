@@ -6,7 +6,7 @@ word_cloud <- function(text.var, term.list = NULL, grouping.var = NULL,
     title.location = 3, title.cex = NULL, title.names = NULL,
     proportional = FALSE, max.word.size = NULL, min.word.size = 0.5,
     legend = NULL, legend.cex = .8, legend.location = c(-.03, 1.03), 
-    char2space = "~~")...){
+    char2space = "~~"){
     
     if (is.null(grouping.var)){
         G <- NULL
