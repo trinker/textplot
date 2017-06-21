@@ -179,7 +179,7 @@ hilight_term <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE,
 #'
 #' @rdname hilight
 #' @export
-hilight_token <- function(text.var, map, grouping.var = NULL, ignore.case = FALSE, 
+hilight_token <- function(text.var, map, grouping.var = NULL, ignore.case = TRUE, 
     keep.row.order = FALSE, ...){
 
     mark <- replacement <- element_id <- token_id <- NULL
