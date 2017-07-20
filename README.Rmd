@@ -204,6 +204,14 @@ presidential_debates_2012 %>%
 
 ## Word Clouds
 
+### Word Cloud
+
+### Heat Cloud
+
+## Term Frequencies Bar/Lolipop
+
+## Comparative Term Frequencies Lolipop
+
 # Contact
 
 You are welcome to:    
