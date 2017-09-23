@@ -9,7 +9,7 @@
 hilight_term(text.var, map, grouping.var = NULL, ignore.case = TRUE,
   keep.row.order = FALSE, ...)
 
-hilight_token(text.var, map, grouping.var = NULL, ignore.case = FALSE,
+hilight_token(text.var, map, grouping.var = NULL, ignore.case = TRUE,
   keep.row.order = FALSE, ...)
 
 hilight_sentence(text.var, map, grouping.var = NULL,
@@ -30,8 +30,8 @@ of 1 or more grouping variables.}
 \item{ignore.case}{logical.  If \code{FALSE}, the pattern initial matching is
 case sensitive and if \code{TRUE}, case is ignored during initial matching.}
 
-\item{keep.row.order}{logical.  If \code{TRUE} the \code{grouping.var} 
-argument is used for headings but the row text is not collapsed within the 
+\item{keep.row.order}{logical.  If \code{TRUE} the \code{grouping.var}
+argument is used for headings but the row text is not collapsed within the
 \code{grouping.var}.  This produces transcript like formatting.}
 
 \item{first.appearance}{logical.  If \code{TRUE} the first regex that matches

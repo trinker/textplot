@@ -1,12 +1,16 @@
 #' Palettes and Palette Viewing
 #'
-#' \code{hilighter_cols} - A palette of 10 hilighter colors.
+#' \code{hilighter_colors} - A palette of 10 hilighter colors.
 #'
 #' @rdname palette
 #' @export
 #' @examples
-#' view_cols(hilighter_cols)
-#' view_cols(c("#FFA500", "#B3B3B3", "#FFFF00", 'red', 'blue', 'black'))
+#' view_colors(hilighter_colors)
+#' view_colors(c("#FFA500", "#B3B3B3", "#FFFF00", 'red', 'blue', 'black'))
+#' view_colors(gradient_colors(sort(hilighter_colors))(25))
+#' \dontrun{
+#' view_colors(gradient_colors(RColorBrewer::brewer.pal(9, 'Set1'))(30))
+#' }
 #'
 #' \dontrun{
 #' library(tidyverse)
@@ -17,7 +21,7 @@
 #'     'you',
 #'     '\\bi(?=($|\\s))'
 #' ) %>%
-#'     map_cols()
+#'     map_colors()
 #'
 #' set.seed(10)
 #' presidential_debates_2012 %>%
@@ -27,18 +31,37 @@
 #'     hilight_term(dialogue, map_hilight, list(person)) %>%
 #'     plot()
 #' }
-hilighter_cols <- c("#FFFF00", "#FFA500", "#E9E9E9", "#FFC0CB", "#00FFFF", "#FF69B4",
+hilighter_colors <- c("#FFFF00", "#FFA500", "#E9E9E9", "#FFC0CB", "#00FFFF", "#FF69B4",
     "#7FFF00", "#CDBE70", "#E066FF", "#FFD39B")
+
+
+
 
 #' Palettes and Palette Viewing
 #'
-#' \code{view_cols} - Plots vector of colors.
+#' \code{gradient_colors} - A function to create a palette function of interpolated
+#' colors.
+#'
+#' @rdname palette
+#' @seealso \code{\link[grDevices]{colorRampPalette}}
+#' @export
+gradient_colors <- function(...) {
+    cols <- assert_hex(c(...))
+    grDevices::colorRampPalette(cols)
+}
+
+
+
+
+#' Palettes and Palette Viewing
+#'
+#' \code{view_colors} - Plots vector of colors.
 #'
 #' @param x A vector of colors (either R \code{colors()} or hexadecimal).
-#' @return \code{view_cols} plots the colors as bars
+#' @return \code{view_colors} plots the colors as bars
 #' @rdname palette
 #' @export
-view_cols <- function(x) {
+view_colors <- function(x = hilighter_colors) {
 
     cols <- rev(assert_hex(x))
 
@@ -74,16 +97,16 @@ assert_hex <- function(x){
 
 #' Palettes and Palette Viewing
 #'
-#' \code{map_cols} - Add colors to a list to make a named list which is a map.
+#' \code{map_colors} - Add colors to a list to make a named list which is a map.
 #'
 #' @param list A list of matches for a map.
-#' @param cols A vector of colors.
-#' @return \code{map_cols} returns a names list
+#' @param colors A vector of colors.
+#' @return \code{map_colors} returns a names list
 #' @rdname palette
 #' @export
-map_cols <- function(list, cols = hilighter_cols){
-    if (length(list) > length(cols)) stop('`list` can not be longer than cols`')
-    names(list) <- assert_hex(cols)[seq_along(list)]
+map_colors <- function(list, colors = hilighter_colors){
+    if (length(list) > length(colors)) stop('`list` can not be longer than colors`')
+    names(list) <- assert_hex(colors)[seq_along(list)]
     list
 }
 
